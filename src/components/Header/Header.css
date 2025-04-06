@@ -14,3 +14,15 @@
 .user-info {
     text-align: right;
 }
+
+.user-info h4 {
+    font-size: 1.2rem;
+}
+
+.logout-btn {
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color:deepskyblue;
+}
