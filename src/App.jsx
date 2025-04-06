@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import Tools from './components/Tools/Tools'
 import Consumables from './components/Consumables/Consumables'
 import Vehicles from './components/Vehicles/Vehicles'
+import Dashboard from './components/Dashboard/Dashboard'
 
 function App() {
 
@@ -15,7 +16,8 @@ function App() {
         <Sidebar/>
         <div className='content'>
           <Routes>
-            <Route path='/tools' element= {<Tools />} />
+            <Route path='/' element = {<Dashboard />} />
+            <Route path='/tools' element = {<Tools />} />
             <Route path='/vehicles' element = {<Vehicles/>} />
             <Route path='/consumables' element = {<Consumables/>} />
           </Routes>
