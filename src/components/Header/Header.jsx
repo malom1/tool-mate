@@ -12,6 +12,7 @@ export default function Header() {
                 <div className="user-info">
                     <h4>John Doe</h4>
                     <p>Aircraft Maintenance Technician</p>
+                    <button className='logout-btn'>Logout</button>
                 </div>
             </div>
         </>
