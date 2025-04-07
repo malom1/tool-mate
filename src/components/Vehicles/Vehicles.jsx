@@ -17,11 +17,6 @@ export default function Vehicles() {
         setInputs ((prev) => ({...prev, [name]: value}));
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(inputs);
-    }
-
     const handleSignIn = (e) => {
         e.preventDefault();
 
@@ -51,10 +46,10 @@ export default function Vehicles() {
     return(
         <div className="vehicles-container">
             <h1>Vehicles</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSignIn}>
                 <label>
                     Select a vehicle:
-                    <select value = {inputs.vehicle || ""} onChange={handleChange} name="vehicle">
+                    <select name = "vehicle" value={inputs.vehicle} onChange={handleChange}>
                         <option value="SEUS 01">SEUS 01</option>
                         <option value="SEUS 03">SEUS 03</option>
                         <option value="SEUS 10">SEUS 10</option>
@@ -66,6 +61,7 @@ export default function Vehicles() {
                         <option value="SEUS 28">SEUS 28</option>
                     </select>
                 </label>
+
                 <label>
                     Name:
                     <input 
@@ -75,6 +71,7 @@ export default function Vehicles() {
                         onChange={handleChange}
                     />
                 </label>
+
                 <label>
                     Employee ID:
                     <input 
@@ -84,8 +81,54 @@ export default function Vehicles() {
                         onChange={handleChange}
                     />
                 </label>
-                <button>Submit</button>
+                <button type="submit">Sign In</button>
             </form>
+
+            <h2>Active Sign-Ins</h2>
+            <ul>
+                {activeSignIns > 0 ? (
+                    activeSignIns.map((entry, index) => (
+                        <li key={index}>
+                            <strong>{entry.vehicle}</strong> - {entry.name} (ID: {entry.id})
+                            <br />
+                            <small>Signed in at: {entry.signInTime}</small>
+                            <button onClick={handleSignOut(index)}>Sign Out</button>
+                        </li>
+                    ))
+                ): (
+                    <p>No active sign-ins</p>
+                )}
+            </ul>
+
+            <h2>Vehicle History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vehicle</th>
+                        <th>Name</th>
+                        <th>Employee ID</th>
+                        <th>Sign In Time</th>
+                        <th>Sign Out Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {history.length > 0 ? (
+                        history.map((entry, index) => (
+                            <tr key={index}>
+                                <td>{entry.vehicle}</td>
+                                <td>{entry.name}</td>
+                                <td>{entry.id}</td>
+                                <td>{entry.signInTime}</td>
+                                <td>{entry.signOutTime}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="5"> No history yet</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
         </div>
     )
 }
