@@ -2,18 +2,49 @@ import { useState } from "react"
 
 export default function Vehicles() {
 
-    const [inputs, setInputs] = useState("");
+    const [activeSignIns, setActiveSignIns] = useState([]);
+
+    const [history, setHistory] = useState([]);
+
+    const [inputs, setInputs] = useState({
+        vehicle: "",
+        name: "",
+        id: ""
+    });
 
     const handleChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setInputs (values => ({...values, [name]: value}));
-
+        const {name, value} = e.target;
+        setInputs ((prev) => ({...prev, [name]: value}));
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(inputs);
+    }
+
+    const handleSignIn = (e) => {
+        e.preventDefault();
+
+        if(!inputs.vehicle || !inputs.name || !inputs.id) {
+            alert("Please fill out all the fields")
+            return;
+        }
+
+        const time = new Date().toLocaleString();
+
+        setActiveSignIns([...activeSignIns, {...inputs, signInTime: time}]);
+
+        setInputs({vehicle: "", name: "", id: ""});
+
+    }
+
+    const handleSignOut = (index) => {
+        const signOutTime = new Date().toLocaleString;
+
+        const signedOutVehicle = {...activeSignIns[index], signOutTime};
+        setHistory(...history, signedOutVehicle);
+
+        setActiveSignIns(activeSignIns.filter((_, i) => i !== index));
     }
 
 
