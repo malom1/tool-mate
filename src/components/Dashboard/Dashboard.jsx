@@ -10,6 +10,7 @@ export default function Dashboard () {
     return (
         <div className="dashboard">
             <h1>Dashboard</h1>
+            <p>Good Morning! Please use the left sidebar to navigate, sign in or sign out</p>
         </div>
 
     )
