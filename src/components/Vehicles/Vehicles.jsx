@@ -28,16 +28,17 @@ export default function Vehicles() {
         const time = new Date().toLocaleString();
 
         setActiveSignIns([...activeSignIns, {...inputs, signInTime: time}]);
+        console.log(activeSignIns);
 
         setInputs({vehicle: "", name: "", id: ""});
 
     }
 
     const handleSignOut = (index) => {
-        const signOutTime = new Date().toLocaleString;
+        const signOutTime = new Date().toLocaleString();
 
         const signedOutVehicle = {...activeSignIns[index], signOutTime};
-        setHistory(...history, signedOutVehicle);
+        setHistory([...history, signedOutVehicle]);
 
         setActiveSignIns(activeSignIns.filter((_, i) => i !== index));
     }
@@ -67,7 +68,7 @@ export default function Vehicles() {
                     <input 
                         type="text"
                         name="name"
-                        value={inputs.name || ""}
+                        value={inputs.name}
                         onChange={handleChange}
                     />
                 </label>
@@ -77,7 +78,7 @@ export default function Vehicles() {
                     <input 
                         type="text"
                         name="id"
-                        value={inputs.id || ""}
+                        value={inputs.id}
                         onChange={handleChange}
                     />
                 </label>
@@ -86,16 +87,17 @@ export default function Vehicles() {
 
             <h2>Active Sign-Ins</h2>
             <ul>
-                {activeSignIns > 0 ? (
+                {activeSignIns.length > 0 ? (
                     activeSignIns.map((entry, index) => (
                         <li key={index}>
                             <strong>{entry.vehicle}</strong> - {entry.name} (ID: {entry.id})
                             <br />
                             <small>Signed in at: {entry.signInTime}</small>
-                            <button onClick={handleSignOut(index)}>Sign Out</button>
+                            <button onClick={() => handleSignOut(index)}>Sign Out</button>
                         </li>
                     ))
-                ): (
+                    
+                ) : (
                     <p>No active sign-ins</p>
                 )}
             </ul>
