@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header/Header'
 import Sidebar from './components/Sidebar/Sidebar'
-import Tools from './components/Tools/Tools'
-import Consumables from './components/Consumables/Consumables'
-import Vehicles from './components/Vehicles/Vehicles'
-import Dashboard from './components/Dashboard/Dashboard'
+import Tools from './pages/Tools/Tools'
+import Consumables from './pages/Consumables/Consumables'
+import Vehicles from './pages/Vehicles/Vehicles'
+import Dashboard from './pages/Dashboard/Dashboard'
 
 function App() {
 
