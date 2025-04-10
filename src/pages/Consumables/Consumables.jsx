@@ -18,7 +18,7 @@ export default function Consumables() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const time = new Date().toLocaleString;
+        const time = new Date().toLocaleString();
         console.log(inputs, time);
     }
 
