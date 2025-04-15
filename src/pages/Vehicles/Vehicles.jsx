@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { supabase } from "../../supabaseClient";
 
 export default function Vehicles() {
 
@@ -17,7 +18,7 @@ export default function Vehicles() {
         setInputs ((prev) => ({...prev, [name]: value}));
     }
 
-    const handleSignIn = (e) => {
+    const handleSignIn = async (e) => {
         e.preventDefault();
 
         if(!inputs.vehicle || !inputs.name || !inputs.id) {
@@ -30,9 +31,24 @@ export default function Vehicles() {
         setActiveSignIns([...activeSignIns, {...inputs, signInTime: time}]);
         console.log(activeSignIns);
 
-        setInputs({vehicle: "", name: "", id: ""});
+        const { error } = await supabase
+            .from('vehicles')
+            .insert([
+                {
+                    vehicle: inputs.vehicle,
+                    employee_name: inputs.name,
+                    employee_id: inputs.id,
+                }
+            ])
+        
+            if (error) {
+                console.log("Insert error: ", error.message)
+            } else {
+                alert("Success");
+                setInputs({vehicle: "", name: "", id: ""});
+            }
 
-    }
+    };
 
     const handleSignOut = (index) => {
         const signOutTime = new Date().toLocaleString();
