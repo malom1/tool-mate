@@ -1,6 +1,5 @@
 import { useState } from "react"
-
-import { supabase } from "../../supabaseClient";
+import { dataInsert } from "../../utils/dataInsert";
 
 export default function Consumables() {
     const [inputs, setInputs] = useState({
@@ -17,11 +16,23 @@ export default function Consumables() {
         setInputs((prev) => ({...prev, [name]: value}));
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const time = new Date().toLocaleString();
-        console.log(inputs, time);
+        
+        const record = {
+            airline: inputs.airline,
+            oil: inputs.oil,
+            employee_name: inputs.name,
+            employee_id: inputs.id,
+            sign_in_time: time,
+        }
+
+        const { success } = await dataInsert("consumables", record);
+        if (success) {
+            setInputs({name: "", id: "", airline: "", oil: ""});
+        }
     }
 
 
