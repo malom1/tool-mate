@@ -1,11 +1,9 @@
 import { useState } from "react"
-import { supabase } from "../../supabaseClient";
+import { dataInsert } from "../../utils/dataInsert";
 
 export default function Vehicles() {
 
     const [activeSignIns, setActiveSignIns] = useState([]);
-
-    const [history, setHistory] = useState([]);
 
     const [inputs, setInputs] = useState({
         vehicle: "",
@@ -26,35 +24,27 @@ export default function Vehicles() {
             return;
         }
 
-        const time = new Date().toLocaleString();
+        const record = {
+            vehicle: inputs.vehicle,
+            employee_name: inputs.name,
+            employee_id: inputs.id,
+            sign_in_time: new Date().toLocaleString(),
+        }
 
-        setActiveSignIns([...activeSignIns, {...inputs, signInTime: time}]);
-        console.log(activeSignIns);
+        const {success} = await dataInsert("vehicles", record);
+        if (success) {
+            setInputs({vehicle: "", name: "", id: ""});
+        }
 
-        const { error } = await supabase
-            .from('vehicles')
-            .insert([
-                {
-                    vehicle: inputs.vehicle,
-                    employee_name: inputs.name,
-                    employee_id: inputs.id,
-                }
-            ])
-        
-            if (error) {
-                console.log("Insert error: ", error.message)
-            } else {
-                alert("Success");
-                setInputs({vehicle: "", name: "", id: ""});
-            }
+        setActiveSignIns([...activeSignIns, {...inputs, signInTime: new Date().toLocaleString()}]);
 
     };
 
     const handleSignOut = (index) => {
-        const signOutTime = new Date().toLocaleString();
+        // const signOutTime = new Date().toLocaleString();
 
-        const signedOutVehicle = {...activeSignIns[index], signOutTime};
-        setHistory([...history, signedOutVehicle]);
+        // const signedOutVehicle = {...activeSignIns[index], signOutTime};
+        // setHistory([...history, signedOutVehicle]);
 
         setActiveSignIns(activeSignIns.filter((_, i) => i !== index));
     }
@@ -117,7 +107,7 @@ export default function Vehicles() {
                     <p>No active sign-ins</p>
                 )}
             </ul>
-
+{/* 
             <h2>Vehicle History</h2>
             <table>
                 <thead>
@@ -146,7 +136,7 @@ export default function Vehicles() {
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </table> */}
         </div>
     )
 }
