@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { dataInsert } from "../../utils/dataInsert";
 
 export default function Tools () {
 
@@ -15,7 +16,7 @@ export default function Tools () {
         setInputs((prev) => ({...prev, [name]: value}));
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const time = new Date().toLocaleString();
@@ -25,9 +26,18 @@ export default function Tools () {
             return;
         }
 
-        setActiveSignIn([...activeSignIn, {...inputs, time}]);
+        const records = {
+            employee_name: inputs.name,
+            employee_id: inputs.id,
+            tool_name: inputs.tool,
+            sign_in_time: time
+        }
 
-        setInputs({name:"", id:"", tool: ""});
+        const { success } = await dataInsert("tools", records);
+        if (success) {
+            setInputs({name:"", id:"", tool: ""});
+            setActiveSignIn([...activeSignIn, {...inputs, time}]);   
+        } 
     }
 
     return (
