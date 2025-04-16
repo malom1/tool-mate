@@ -1,6 +1,12 @@
+import { supabase } from '../../supabaseClient'
 import './Header.css'
 
 export default function Header() {
+
+    const handleLogout = async () => {
+        const { error } = await supabase.auth.signOut();
+        if (error) console.error("Logout error: ", error.message)
+    }
 
     return(
         <>
@@ -12,7 +18,7 @@ export default function Header() {
                 <div className="user-info">
                     <h4>John Doe</h4>
                     <p>Aircraft Maintenance Technician</p>
-                    <button className='logout-btn'>Logout</button>
+                    <button onClick={handleLogout}>Logout</button>
                 </div>
             </div>
         </>
