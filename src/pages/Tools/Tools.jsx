@@ -8,7 +8,8 @@ export default function Tools () {
     const [inputs, setInputs] = useState({
         name: "",
         id: "",
-        tool: ""
+        tool: "",
+        toolbox: ""
     })
 
     const handleChange = (e) => {
@@ -41,11 +42,33 @@ export default function Tools () {
     }
 
     return (
-        <div>
+        <div className="main-container">
             <h1>Tool Management</h1>
             <form onSubmit={handleSubmit}>
+
                 <label>
-                    Name:
+                    Tool Name:
+                    <input 
+                        type="text"
+                        name="tool"
+                        value={inputs.tool}
+                        onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                    Toolbox:
+                    <select name = "toolbox" value={inputs.toolbox} onChange={handleChange}>
+                        <option value="Select Toolbox">Select Toolbox</option>
+                        <option value="TO 23">TO 23</option>
+                        <option value="TO 24">TO 24</option>
+                        <option value="TO 25">TO 25</option>
+                    </select>
+                </label>
+
+
+                <label>
+                    Employee Name:
                     <input 
                         type="text"
                         name="name"
@@ -64,33 +87,26 @@ export default function Tools () {
                     />
                 </label>
 
-                <label>
-                    Tool Name:
-                    <input 
-                        type="text"
-                        name="tool"
-                        value={inputs.tool}
-                        onChange={handleChange}
-                    />
-                </label>
-                <button type="submit">submit</button>
+                <button type="submit-btn">Submit</button>
             </form>
-            <h2>Active Tool Sign Ins</h2>
-            <ul>
-                {activeSignIn.length > 0 ? (
-                    activeSignIn.map((entry, index) =>
-                        <li key={index}>
-                            <strong>{entry.tool}</strong> - {entry.name} ({entry.id})
-                            <br />
-                            <small>Signed in at: {entry.time}</small>
-                            <button>Sign Out</button>
-                        </li>
+            <div className="active-container">
+                <h2>Active Tool Sign Ins</h2>
+                <ul>
+                    {activeSignIn.length > 0 ? (
+                        activeSignIn.map((entry, index) =>
+                            <li key={index}>
+                                <strong>{entry.tool}</strong> - {entry.name} ({entry.id})
+                                <br />
+                                <small>Signed in at: {entry.time}</small>
+                                <button>Sign Out</button>
+                            </li>
+                        )
+                    ) : (
+                        <p>No active sign ins</p>
                     )
-                ) : (
-                    <p>No active sign ins</p>
-                )
-                }
-            </ul>
+                    }
+                </ul>
+            </div>
         </div>
     )
 }
