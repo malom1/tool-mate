@@ -20,13 +20,11 @@ function App() {
       setSession(session)
     });
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: {subscription} } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     });
 
-    return () => {
-      listener.subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, []);
 
   if(!session) {
