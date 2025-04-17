@@ -1,14 +1,13 @@
-// import { useState } from "react"
+import DateTime from "../../components/DateTime/DateTime"
 
 export default function Dashboard () {
-
-    const dateTime = new Date().toLocaleString()
 
     return (
         <div className="dashboard">
             <h1>Dashboard</h1>
-            <h5>{dateTime}</h5>
-            <p>Good Morning! Please use the left sidebar to navigate, sign in or sign out</p>
+            <DateTime />
+            <h3>Welcome to the Tool Mate Dashboard!</h3>
+            <p>Select the options on the left sidebar to start logging.</p>
         </div>
 
     )

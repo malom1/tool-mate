@@ -13,7 +13,7 @@ export default function Header() {
             <div className="header">
                 <div className="logo">
                     <img src="./assets/logo.png" alt="" />
-                    <h1>Tool Mate</h1>
+                    <h1>TOOL MATE</h1>
                 </div>
                 <div className="user-info">
                     <h4>SIA JFK OPS</h4>

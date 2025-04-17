@@ -1,0 +1,7 @@
+.datetime {
+    font-family: monospace;
+    font-size: 1rem;
+    color: #1d3557;
+    border-radius: 8px;
+    display: inline-block;
+}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "./DateTime.module.css"
 
 export default function DateTime() {
 
@@ -12,11 +13,11 @@ export default function DateTime() {
         return() => clearInterval(interval);
     }, [])
 
-    const formattedTime = time.toLocaleTimeString;
-    const formattedDate = time.toLocaleDateString;
+    const formattedTime = time.toLocaleTimeString();
+    const formattedDate = time.toLocaleDateString();
 
     return(
-        <div>
+        <div className={styles.datetime}>
             <h3>{formattedDate}</h3>
             <h3>{formattedTime}</h3>
         </div>
