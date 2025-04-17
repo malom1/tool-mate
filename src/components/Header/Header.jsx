@@ -16,8 +16,7 @@ export default function Header() {
                     <h1>Tool Mate</h1>
                 </div>
                 <div className="user-info">
-                    <h4>John Doe</h4>
-                    <p>Aircraft Maintenance Technician</p>
+                    <h4>SIA JFK OPS</h4>
                     <button onClick={handleLogout}>Logout</button>
                 </div>
             </div>

@@ -35,7 +35,7 @@ function App() {
 
   return (
     <Router>
-      <Header className="header"/>
+      <Header />
       <div className="main-layout">
         <Sidebar/>
         <div className='content'>
