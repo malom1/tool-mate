@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
+import { supabase } from "../../supabaseClient";
 
 export default function Tools () {
 
@@ -20,7 +21,7 @@ export default function Tools () {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(!inputs.name || !inputs.id || !inputs.tool){
+        if(!inputs.name || !inputs.id || !inputs.tool || !inputs.location){
             alert("Enter all fields")
             return;
         }
@@ -40,6 +41,41 @@ export default function Tools () {
             setInputs({name:"", id:"", tool: "", location: ""});
             setActiveSignIn([...activeSignIn, {...inputs, time}]);   
         }
+    }
+
+    const handleSignOut = async (entry) => {
+
+        const time = new Date().toLocaleString();
+
+        const { data: record, error: fetchError } = await supabase
+            .from("tools")
+            .select("id")
+            .eq("employee_id", entry.id)
+            .eq("tool_name", entry.tool)
+            .is("sign_out_time", null)
+            .order("sign_in_time", {ascending: false})
+            .limit(1)
+            .single();
+        
+        if (fetchError || !record) {
+            alert("Active record not found for this tool and employee.");
+            console.log(fetchError.message)
+            return;
+        }
+
+        const { error: updateError } = await supabase
+            .from("tools")
+            .update({sign_out_time: time})
+            .eq("id", record.id)
+        
+        if (updateError) {
+            alert("Error signing out");
+            return;
+        }
+
+        setActiveSignIn(prev => prev.filter(signIn =>
+            !(signIn.id === entry.id && signIn.tool ===entry.tool)
+        ));
     }
 
     return (
@@ -101,7 +137,7 @@ export default function Tools () {
                                 <strong>{entry.tool}</strong> - {entry.name} ({entry.id})
                                 <br />
                                 <small>Signed in at: {entry.time}</small>
-                                <button>Sign Out</button>
+                                <button onClick={() => handleSignOut(entry)}>Sign Out</button>
                             </li>
                         )
                     ) : (
