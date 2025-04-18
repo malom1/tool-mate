@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
 import { supabase } from "../../supabaseClient";
 
@@ -35,9 +35,8 @@ export default function Vehicles() {
         const {success} = await dataInsert("vehicles", record);
         if (success) {
             setInputs({vehicle: "", name: "", id: ""});
+            setActiveSignIns((prev) => [...prev, {...record}]);
         }
-
-        setActiveSignIns([...activeSignIns, {...inputs, signInTime: new Date().toLocaleString()}]);
 
     };
 
@@ -48,12 +47,12 @@ export default function Vehicles() {
         const { data: record, error: fetchError } = await supabase
             .from("vehicles")
             .select("id")
-            .eq("employee_id", entry.id)
+            .eq("employee_id", entry.employee_id)
             .eq("vehicle", entry.vehicle)
             .is("sign_out_time", null)
             .order("sign_in_time", {ascending: false})
             .limit(1)
-            .single();
+            .maybeSingle();
         
         if (fetchError || !record) {
             alert("Active record not found for this vehicle and employee.");
@@ -75,6 +74,26 @@ export default function Vehicles() {
             !(signIn.id === entry.id && signIn.vehicle ===entry.vehicle)
         ));
     }
+
+        const fetchActiveData = async () => {
+    
+            const { data, error} = await supabase
+                .from("vehicles")
+                .select("*")
+                .is("sign_out_time", null);
+    
+            if (error) {
+                alert("Error fetching active data: ")
+                console.error(error.message);
+                return
+            }
+    
+            setActiveSignIns(data);
+        }
+    
+        useEffect(() => {
+            fetchActiveData();
+        }, []);
 
 
     return(
@@ -126,9 +145,9 @@ export default function Vehicles() {
                     {activeSignIns.length > 0 ? (
                         activeSignIns.map((entry, index) => (
                             <li key={index}>
-                                <strong>{entry.vehicle}</strong> - {entry.name} (ID: {entry.id})
+                                <strong>{entry.vehicle}</strong> - {entry.employee_name} (ID: {entry.employee_id})
                                 <br />
-                                <small>Signed in at: {entry.signInTime}</small>
+                                <small>Signed in at: {entry.sign_in_time}</small>
                                 <button onClick={() => handleSignOut(entry)}>Sign Out</button>
                             </li>
                         ))
