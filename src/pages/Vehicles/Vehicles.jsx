@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
 import { supabase } from "../../supabaseClient";
+import styles from "./Vehicles.module.css"
 
 export default function Vehicles() {
 
@@ -98,7 +99,7 @@ export default function Vehicles() {
 
     return(
         <div className="main-container">
-            <h1>Vehicles</h1>
+            <h1>Vehicle Management</h1>
             <form onSubmit={handleSignIn}>
                 <label>
                     Vehicle
@@ -139,16 +140,16 @@ export default function Vehicles() {
                 <button type="submit-btn">Sign In</button>
             </form>
 
-            <div className="active-container">
-                <h2>Active Sign-Ins</h2>
+            <h2>Active Vehicle Sign-Ins</h2>
+            <div className={styles.active}>
                 <ul>
                     {activeSignIns.length > 0 ? (
                         activeSignIns.map((entry, index) => (
-                            <li key={index}>
+                            <li className={styles.list} key={index}>
                                 <strong>{entry.vehicle}</strong> - {entry.employee_name} (ID: {entry.employee_id})
                                 <br />
                                 <small>Signed in at: {entry.sign_in_time}</small>
-                                <button onClick={() => handleSignOut(entry)}>Sign Out</button>
+                                <button className={styles.signout}onClick={() => handleSignOut(entry)}>Sign Out</button>
                             </li>
                         ))
                         

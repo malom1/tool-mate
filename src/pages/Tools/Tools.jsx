@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
 import { supabase } from "../../supabaseClient";
+import styles from "./Tools.module.css"
 
 export default function Tools () {
 
@@ -151,16 +152,17 @@ export default function Tools () {
 
                 <button type="submit">Submit</button>
             </form>
-            <div className="active-container">
-                <h2>Active Tool Sign Ins</h2>
+
+            <h2>Active Tool Sign-Ins</h2>
+            <div className={styles.active}>
                 <ul>
                     {activeSignIn.length > 0 ? (
                         activeSignIn.map((entry, index) =>
-                            <li key={index}>
+                            <li className= {styles.list} key={index}>
                                 <strong>{entry.tool_name}</strong> - {entry.employee_name} ({entry.employee_id})
                                 <br />
                                 <small>Signed in at: {entry.sign_in_time}</small>
-                                <button onClick={() => handleSignOut(entry)}>Sign Out</button>
+                                <button className = {styles.signout} onClick={() => handleSignOut(entry)}>Sign Out</button>
                             </li>
                         )
                     ) : (

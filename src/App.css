@@ -37,11 +37,6 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
-.sidebar a:hover,
-.sidebar .active {
-    color: #0d4e85;
-}
-
 .header {
     background-color: #ffffff;
     padding: 1rem 2rem;
@@ -86,7 +81,7 @@ input, select {
 
 button {
     margin-top: 1rem;
-    padding: 0.6rem 1.4rem;
+    padding: 0.6rem 1rem;
     background-color: #0d4e85;
     color: white;
     border: none;
