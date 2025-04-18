@@ -9,7 +9,7 @@ export default function Tools () {
         name: "",
         id: "",
         tool: "",
-        toolbox: ""
+        location: ""
     })
 
     const handleChange = (e) => {
@@ -20,25 +20,26 @@ export default function Tools () {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const time = new Date().toLocaleString();
-
         if(!inputs.name || !inputs.id || !inputs.tool){
             alert("Enter all fields")
             return;
         }
 
+        var time = new Date().toLocaleString();
+
         const records = {
             employee_name: inputs.name,
             employee_id: inputs.id,
             tool_name: inputs.tool,
-            sign_in_time: time
+            sign_in_time: time,
+            location: inputs.location,
         }
 
         const { success } = await dataInsert("tools", records);
         if (success) {
-            setInputs({name:"", id:"", tool: ""});
+            setInputs({name:"", id:"", tool: "", location: ""});
             setActiveSignIn([...activeSignIn, {...inputs, time}]);   
-        } 
+        }
     }
 
     return (
@@ -47,7 +48,7 @@ export default function Tools () {
             <form onSubmit={handleSubmit}>
 
                 <label>
-                    Tool Name:
+                    Tool Name
                     <input 
                         type="text"
                         name="tool"
@@ -57,12 +58,14 @@ export default function Tools () {
                 </label>
 
                 <label>
-                    Toolbox:
-                    <select name = "toolbox" value={inputs.toolbox} onChange={handleChange}>
-                        <option value="Select Toolbox">Select Toolbox</option>
+                    Location
+                    <select name = "location" value={inputs.location} onChange={handleChange}>
+                        <option value="Select Location">Select Location</option>
+                        <option value="Storage Cabinet">Storage Cabinet</option>
                         <option value="TO 23">TO 23</option>
                         <option value="TO 24">TO 24</option>
                         <option value="TO 25">TO 25</option>
+                        <option value="Other">Other</option>
                     </select>
                 </label>
 

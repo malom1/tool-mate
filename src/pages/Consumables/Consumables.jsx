@@ -8,6 +8,7 @@ export default function Consumables() {
         id: "",
         airline: "",
         oil: "",
+        quantity: "",
 
     });
     
@@ -18,32 +19,34 @@ export default function Consumables() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const time = new Date().toLocaleString();
         
         const record = {
             airline: inputs.airline,
             oil: inputs.oil,
+            quantity: inputs.quantity,
             employee_name: inputs.name,
             employee_id: inputs.id,
-            sign_in_time: time,
+            sign_out_date: new Date().toLocaleDateString(),
         }
 
         const { success } = await dataInsert("consumables", record);
         if (success) {
-            setInputs({name: "", id: "", airline: "", oil: ""});
+            setInputs({name: "", id: "", airline: "", oil: "", quantity: ""});
         }
     }
 
 
     return (
         <div className="consumables-container">
-            <h1>Oil/Hydraulics Management</h1>
+            <h1>Oil Management</h1>
 
             <form onSubmit={handleSubmit}>
                 <label>
-                    Select an airline:
+                    Airline
                     <select name = "airline" value={inputs.airline} onChange={handleChange}>
+                        <option value="Select Airline">Select Airline</option>
+                        <option value="Asiana Airlines">Asiana Airlines</option>
+                        <option value="Kuwait Airways">Kuwait Airways</option>
                         <option value="Air India">Air India</option>
                         <option value="Etihad Airways">Etihad Airways</option>
                         <option value="Hawaiian Airlines">Hawaiian Airlines</option>
@@ -51,12 +54,16 @@ export default function Consumables() {
                         <option value="Uzbekistan Airways">Uzbekistan Airways</option>
                         <option value="Singapore Airlines">Singapore Airlines</option>
                         <option value="Philippines Airlines">Philippines Airlines</option>
+                        <option value="Amazon Cargo">Amazon Cargo</option>
+                        <option value="China Cargo">China Cargo</option>
+                        <option value="DHL Cargo">DHL Cargo</option>
                     </select>
                 </label>
 
                 <label>
-                    Select the oil:
+                    Oil
                     <select name = "oil" value={inputs.oil} onChange={handleChange}>
+                        <option value="Select Oil">Select Oil</option>
                         <option value="Eastman 2197">Eastman 2197</option>
                         <option value="Mobil Jet II">Mobil Jet II</option>
                         <option value="Mobil Jet 387">Mobil Jet 387</option>
@@ -64,7 +71,17 @@ export default function Consumables() {
                 </label>
 
                 <label>
-                    Name:
+                    Quantity
+                    <input 
+                        type="number"
+                        name="quantity"
+                        value={inputs.quantity}
+                        onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                    Employee Name:
                     <input 
                         type="text"
                         name="name"
