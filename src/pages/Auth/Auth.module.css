@@ -1,0 +1,12 @@
+
+
+.container {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.logo {
+    margin-bottom: 25px;
+}

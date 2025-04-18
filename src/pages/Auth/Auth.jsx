@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../../supabaseClient";
+import styles from "./Auth.module.css"
 
 export default function Auth() {
 
@@ -23,8 +24,8 @@ export default function Auth() {
     }
 
     return(
-        <div>
-            <h2>{isLogin ? "Sign In" : "Sign Up"}</h2>
+        <div className={styles.container}>
+            <h1 className={styles.logo}>Tool Mate</h1>
             <form onSubmit={handleSubmit}>
                 <input 
                     type="email"
@@ -38,7 +39,7 @@ export default function Auth() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">{isLogin ? "Sign In" : "Sign Up"}</button>
+                <button className={styles.btn} type="submit">{isLogin ? "Sign In" : "Sign Up"}</button>
             </form>
             <button onClick={() => setIsLogin(!isLogin)}>
                 {isLogin ? "Need an account? Sign Up" : "Already have an account? Sign In"}
