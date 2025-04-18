@@ -97,10 +97,10 @@ export default function Tools () {
                     Location
                     <select name = "location" value={inputs.location} onChange={handleChange}>
                         <option value="Select Location">Select Location</option>
-                        <option value="Storage Cabinet">Storage Cabinet</option>
                         <option value="TO 23">TO 23</option>
                         <option value="TO 24">TO 24</option>
                         <option value="TO 25">TO 25</option>
+                        <option value="Storage Cabinet">Storage Cabinet</option>
                         <option value="Other">Other</option>
                     </select>
                 </label>

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
+import { supabase } from "../../supabaseClient";
 
 export default function Vehicles() {
 
@@ -40,13 +41,39 @@ export default function Vehicles() {
 
     };
 
-    const handleSignOut = (index) => {
-        // const signOutTime = new Date().toLocaleString();
+    const handleSignOut = async (entry) => {
 
-        // const signedOutVehicle = {...activeSignIns[index], signOutTime};
-        // setHistory([...history, signedOutVehicle]);
+        const time = new Date().toLocaleString();
 
-        setActiveSignIns(activeSignIns.filter((_, i) => i !== index));
+        const { data: record, error: fetchError } = await supabase
+            .from("vehicles")
+            .select("id")
+            .eq("employee_id", entry.id)
+            .eq("vehicle", entry.vehicle)
+            .is("sign_out_time", null)
+            .order("sign_in_time", {ascending: false})
+            .limit(1)
+            .single();
+        
+        if (fetchError || !record) {
+            alert("Active record not found for this vehicle and employee.");
+            console.log(fetchError.message)
+            return;
+        }
+
+        const { error: updateError } = await supabase
+            .from("vehicles")
+            .update({sign_out_time: time})
+            .eq("id", record.id)
+        
+        if (updateError) {
+            alert("Error signing out");
+            return;
+        }
+
+        setActiveSignIns(prev => prev.filter(signIn =>
+            !(signIn.id === entry.id && signIn.vehicle ===entry.vehicle)
+        ));
     }
 
 
@@ -57,7 +84,7 @@ export default function Vehicles() {
                 <label>
                     Vehicle
                     <select name = "vehicle" value={inputs.vehicle} onChange={handleChange}>
-                    <option value="SELECT VEHICLE">SELECT VEHICLE</option>
+                        <option value="Select Vehicle">Select Vehicle</option>
                         <option value="SEUS 01">SEUS 01</option>
                         <option value="SEUS 03">SEUS 03</option>
                         <option value="SEUS 10">SEUS 10</option>
@@ -102,7 +129,7 @@ export default function Vehicles() {
                                 <strong>{entry.vehicle}</strong> - {entry.name} (ID: {entry.id})
                                 <br />
                                 <small>Signed in at: {entry.signInTime}</small>
-                                <button onClick={() => handleSignOut(index)}>Sign Out</button>
+                                <button onClick={() => handleSignOut(entry)}>Sign Out</button>
                             </li>
                         ))
                         
