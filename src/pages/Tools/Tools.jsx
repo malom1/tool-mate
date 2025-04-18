@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
 import { supabase } from "../../supabaseClient";
 
@@ -21,12 +21,12 @@ export default function Tools () {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(!inputs.name || !inputs.id || !inputs.tool || !inputs.location){
+        if(!inputs.name || !inputs.id || !inputs.tool){
             alert("Enter all fields")
             return;
         }
 
-        var time = new Date().toLocaleString();
+        const time = new Date().toLocaleString();
 
         const records = {
             employee_name: inputs.name,
@@ -39,9 +39,9 @@ export default function Tools () {
         const { success } = await dataInsert("tools", records);
         if (success) {
             setInputs({name:"", id:"", tool: "", location: ""});
-            setActiveSignIn([...activeSignIn, {...inputs, time}]);   
+            setActiveSignIn((prev) => [...prev, {...records}]);   
         }
-    }
+    };
 
     const handleSignOut = async (entry) => {
 
@@ -50,16 +50,16 @@ export default function Tools () {
         const { data: record, error: fetchError } = await supabase
             .from("tools")
             .select("id")
-            .eq("employee_id", entry.id)
-            .eq("tool_name", entry.tool)
+            .eq("employee_id", entry.employee_id)
+            .eq("tool_name", entry.tool_name)
             .is("sign_out_time", null)
             .order("sign_in_time", {ascending: false})
             .limit(1)
-            .single();
+            .maybeSingle();
         
         if (fetchError || !record) {
             alert("Active record not found for this tool and employee.");
-            console.log(fetchError.message)
+            console.error(fetchError?.message)
             return;
         }
 
@@ -70,13 +70,36 @@ export default function Tools () {
         
         if (updateError) {
             alert("Error signing out");
+            console.error(updateError.message);
             return;
         }
 
-        setActiveSignIn(prev => prev.filter(signIn =>
-            !(signIn.id === entry.id && signIn.tool ===entry.tool)
-        ));
+        setActiveSignIn((prev) =>
+            prev.filter(
+                (signIn) => !(signIn.id === entry.id && signIn.tool === entry.tool)
+            )
+        );
+    };
+
+    const fetchActiveData = async () => {
+
+        const { data, error} = await supabase
+            .from("tools")
+            .select("*")
+            .is("sign_out_time", null);
+
+        if (error) {
+            alert("Error fetching active data: ")
+            console.error(error.message);
+            return
+        }
+
+        setActiveSignIn(data);
     }
+
+    useEffect(() => {
+        fetchActiveData();
+    }, []);
 
     return (
         <div className="main-container">
@@ -126,7 +149,7 @@ export default function Tools () {
                     />
                 </label>
 
-                <button type="submit-btn">Submit</button>
+                <button type="submit">Submit</button>
             </form>
             <div className="active-container">
                 <h2>Active Tool Sign Ins</h2>
@@ -134,9 +157,9 @@ export default function Tools () {
                     {activeSignIn.length > 0 ? (
                         activeSignIn.map((entry, index) =>
                             <li key={index}>
-                                <strong>{entry.tool}</strong> - {entry.name} ({entry.id})
+                                <strong>{entry.tool_name}</strong> - {entry.employee_name} ({entry.employee_id})
                                 <br />
-                                <small>Signed in at: {entry.time}</small>
+                                <small>Signed in at: {entry.sign_in_time}</small>
                                 <button onClick={() => handleSignOut(entry)}>Sign Out</button>
                             </li>
                         )

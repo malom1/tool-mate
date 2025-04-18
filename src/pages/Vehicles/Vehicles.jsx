@@ -117,7 +117,7 @@ export default function Vehicles() {
                         onChange={handleChange}
                     />
                 </label>
-                <button type="submit">Sign In</button>
+                <button type="submit-btn">Sign In</button>
             </form>
 
             <div className="active-container">
