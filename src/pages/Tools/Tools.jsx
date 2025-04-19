@@ -159,7 +159,7 @@ export default function Tools () {
 
             <h2>Active Tool Sign-Ins</h2>
             {loading ? (
-                <div className="loading">Loading...</div>
+                <div className="spinner"></div>
             ) : (
                 <div className={styles.active}>
                     <ul>

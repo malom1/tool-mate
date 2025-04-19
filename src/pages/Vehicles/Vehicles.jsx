@@ -147,7 +147,7 @@ export default function Vehicles() {
 
             <h2>Active Vehicle Sign-Ins</h2>
             {loading ? (
-                <div className="loading">Loading...</div>
+                <div className="spinner"></div>
             ) : (
                 <div className={styles.active}>
                 <ul>
