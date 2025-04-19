@@ -6,6 +6,7 @@ import styles from "./Vehicles.module.css"
 export default function Vehicles() {
 
     const [activeSignIns, setActiveSignIns] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [inputs, setInputs] = useState({
         vehicle: "",
@@ -77,6 +78,8 @@ export default function Vehicles() {
     }
 
         const fetchActiveData = async () => {
+
+            setLoading(true);
     
             const { data, error} = await supabase
                 .from("vehicles")
@@ -86,10 +89,12 @@ export default function Vehicles() {
             if (error) {
                 alert("Error fetching active data: ")
                 console.error(error.message);
-                return
+                return;
+            } else {
+                setActiveSignIns(data);
             }
-    
-            setActiveSignIns(data);
+
+            setLoading(false);
         }
     
         useEffect(() => {
@@ -141,7 +146,10 @@ export default function Vehicles() {
             </form>
 
             <h2>Active Vehicle Sign-Ins</h2>
-            <div className={styles.active}>
+            {loading ? (
+                <div className="loading">Loading...</div>
+            ) : (
+                <div className={styles.active}>
                 <ul>
                     {activeSignIns.length > 0 ? (
                         activeSignIns.map((entry, index) => (
@@ -158,6 +166,7 @@ export default function Vehicles() {
                     )}
                 </ul>
             </div>
+            )}
         </div>
     )
 }

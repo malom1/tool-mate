@@ -6,6 +6,7 @@ import styles from "./Tools.module.css"
 export default function Tools () {
 
     const [activeSignIn, setActiveSignIn] = useState([])
+    const [loading, setLoading] = useState(false);
 
     const [inputs, setInputs] = useState({
         name: "",
@@ -83,6 +84,7 @@ export default function Tools () {
     };
 
     const fetchActiveData = async () => {
+        setLoading(true);
 
         const { data, error} = await supabase
             .from("tools")
@@ -93,9 +95,11 @@ export default function Tools () {
             alert("Error fetching active data: ")
             console.error(error.message);
             return
+        } else {
+            setActiveSignIn(data);
         }
-
-        setActiveSignIn(data);
+    
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -154,23 +158,27 @@ export default function Tools () {
             </form>
 
             <h2>Active Tool Sign-Ins</h2>
-            <div className={styles.active}>
-                <ul>
-                    {activeSignIn.length > 0 ? (
-                        activeSignIn.map((entry, index) =>
-                            <li className= {styles.list} key={index}>
-                                <strong>{entry.tool_name}</strong> - {entry.employee_name} ({entry.employee_id})
-                                <br />
-                                <small>Signed in at: {entry.sign_in_time}</small>
-                                <button className = {styles.signout} onClick={() => handleSignOut(entry)}>Sign Out</button>
-                            </li>
+            {loading ? (
+                <div className="loading">Loading...</div>
+            ) : (
+                <div className={styles.active}>
+                    <ul>
+                        {activeSignIn.length > 0 ? (
+                            activeSignIn.map((entry, index) =>
+                                <li className= {styles.list} key={index}>
+                                    <strong>{entry.tool_name}</strong> - {entry.employee_name} ({entry.employee_id})
+                                    <br />
+                                    <small>Signed in at: {entry.sign_in_time}</small>
+                                    <button className = {styles.signout} onClick={() => handleSignOut(entry)}>Sign Out</button>
+                                </li>
+                            )
+                        ) : (
+                            <p>No active sign ins</p>
                         )
-                    ) : (
-                        <p>No active sign ins</p>
-                    )
-                    }
-                </ul>
-            </div>
+                        }
+                    </ul>
+                </div>
+            )}
         </div>
     )
 }
