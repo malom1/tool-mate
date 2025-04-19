@@ -1,5 +1,4 @@
 import { supabase } from '../../supabaseClient'
-import './Header.css'
 
 export default function Header() {
 

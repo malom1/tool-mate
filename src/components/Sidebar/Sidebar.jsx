@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import "./Sidebar.css"
 
 export default function Sidebar() {
     return (
