@@ -1,0 +1,21 @@
+.memo-header {
+    justify-self: center;
+}
+
+.container {
+    background-color: rgb(157, 197, 245);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    max-width: 400px;
+    margin-top: 2rem;
+}
+
+.memo {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    max-width: 300x;
+    margin-top: 2rem;
+}
