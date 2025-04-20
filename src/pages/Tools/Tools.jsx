@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
 import { supabase } from "../../supabaseClient";
 import styles from "./Tools.module.css"
+import { generatePDF } from "../../utils/generatePDF";
 
 export default function Tools () {
 
@@ -12,13 +13,34 @@ export default function Tools () {
         name: "",
         id: "",
         tool: "",
+        tic: "",
+        airline: "",
         location: ""
     })
+
+    const formatTime = (time) => {
+        if (!time) return "";
+        const date = new Date(time);
+        return date.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+
+    const formatDate = (timestamp) => {
+        if (!timestamp) return "";
+        const date = new Date(timestamp);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const year = String(date.getFullYear()).slice(-2); // Get last 2 digits
+        return `${day}/${month}/${year}`;
+      };
 
     const handleChange = (e) => {
         const {name, value} = e.target;
         setInputs((prev) => ({...prev, [name]: value}));
     }
+      
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,13 +56,15 @@ export default function Tools () {
             employee_name: inputs.name,
             employee_id: inputs.id,
             tool_name: inputs.tool,
+            tic: inputs.tic,
+            airline: inputs.airline,
             sign_in_time: time,
             location: inputs.location,
         }
 
         const { success } = await dataInsert("tools", records);
         if (success) {
-            setInputs({name:"", id:"", tool: "", location: ""});
+            setInputs({name:"", id:"", tool: "", location: "", tic: "", airline: ""});
             setActiveSignIn((prev) => [...prev, {...records}]);   
         }
     };
@@ -112,6 +136,16 @@ export default function Tools () {
             <form onSubmit={handleSubmit}>
 
                 <label>
+                    TIC
+                    <input 
+                        type="text"
+                        name="tic"
+                        value={inputs.tic}
+                        onChange={handleChange}
+                    />
+                </label>
+
+                <label>
                     Tool Name
                     <input 
                         type="text"
@@ -130,6 +164,25 @@ export default function Tools () {
                         <option value="TO 25">TO 25</option>
                         <option value="Storage Cabinet">Storage Cabinet</option>
                         <option value="Other">Other</option>
+                    </select>
+                </label>
+
+                <label>
+                    Airline
+                    <select name = "airline" value={inputs.airline} onChange={handleChange}>
+                        <option value="Select Airline">Select Airline</option>
+                        <option value="Asiana Airlines">Asiana Airlines</option>
+                        <option value="Kuwait Airways">Kuwait Airways</option>
+                        <option value="Air India">Air India</option>
+                        <option value="Etihad Airways">Etihad Airways</option>
+                        <option value="Hawaiian Airlines">Hawaiian Airlines</option>
+                        <option value="Kenya Airways">Kenya Airways</option>
+                        <option value="Uzbekistan Airways">Uzbekistan Airways</option>
+                        <option value="Singapore Airlines">Singapore Airlines</option>
+                        <option value="Philippines Airlines">Philippines Airlines</option>
+                        <option value="Amazon Cargo">Amazon Cargo</option>
+                        <option value="China Cargo">China Cargo</option>
+                        <option value="DHL Cargo">DHL Cargo</option>
                     </select>
                 </label>
 
@@ -179,6 +232,26 @@ export default function Tools () {
                     </ul>
                 </div>
             )}
+            <button
+                onClick={() =>
+                    generatePDF({
+                        table: "tools",
+                        title: "SIA ENGINEERING (USA) / FORM NO. SIAE-C04",
+                        header: ["TIC", "TOOL NAME", "A/C WORK ORDER", "DATE ISSUED", "ISSUED TO", "DATE RETURNED", "RETURNING EMPLOYEE", "TIME IN", "TIME OUT"],
+                        mapRow: (records) => [
+                            records.tic,
+                            records.tool_name,
+                            records.airline,
+                            formatDate(records.sign_in_time),
+                            records.employee_name,
+                            formatDate(records.sign_out_time),
+                            records.employee_name,
+                            formatTime(records.sign_in_time),
+                            formatTime(records.sign_out_time),
+                        ]
+                    })
+                }
+            >Export PDF</button>
         </div>
     )
 }

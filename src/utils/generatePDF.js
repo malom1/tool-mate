@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
-import "jspdf-autotable";
-import supabase from "../supabaseClient";
+import "jspdf-autotable"
+import {supabase} from "../supabaseClient";
 
 export const generatePDF = async ({table, title, header, mapRow}) => {
     const {data, error} = await supabase.from(table).select("*");
@@ -14,7 +14,7 @@ export const generatePDF = async ({table, title, header, mapRow}) => {
     const rows = data.map(mapRow);
 
     const doc = new jsPDF();
-    doc.text(`${title} (${table})`, 14, 15);
+    doc.text(`${title}`, 14, 15);
 
     doc.autoTable({
         head: [header],
@@ -24,5 +24,7 @@ export const generatePDF = async ({table, title, header, mapRow}) => {
         margin: {top: 20}
     });
 
-    doc.save(`${table}-report.pdf`)
+    const blob = doc.output("blob");
+    const blobUrl = URL.createObjectURL(blob);
+    window.open(blobUrl, "_blank");
 }
