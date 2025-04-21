@@ -236,7 +236,7 @@ export default function Tools () {
                 onClick={() =>
                     generatePDF({
                         table: "tools",
-                        title: "SIA ENGINEERING (USA) / FORM NO. SIAE-C04",
+                        title: "SIA ENGINEERING (USA) | TOOL LOG ISSUE / RETURN REGISTER | FORM NO. SIAE-C04",
                         header: ["TIC", "TOOL NAME", "A/C WORK ORDER", "DATE ISSUED", "ISSUED TO", "DATE RETURNED", "RETURNING EMPLOYEE", "TIME IN", "TIME OUT"],
                         mapRow: (records) => [
                             records.tic,

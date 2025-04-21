@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
 import { supabase } from "../../supabaseClient";
 import styles from "./Vehicles.module.css"
+import { generatePDF } from "../../utils/generatePDF";
 
 export default function Vehicles() {
 
@@ -13,6 +14,24 @@ export default function Vehicles() {
         name: "",
         id: ""
     });
+
+    const formatTime = (time) => {
+        if (!time) return "";
+        const date = new Date(time);
+        return date.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+
+    const formatDate = (timestamp) => {
+        if (!timestamp) return "";
+        const date = new Date(timestamp);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = String(date.getFullYear()).slice(-2);
+        return `${day}/${month}/${year}`;
+      };
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -167,6 +186,25 @@ export default function Vehicles() {
                 </ul>
             </div>
             )}
+            <button
+                onClick={() =>
+                    generatePDF({
+                        table: "vehicles",
+                        title: "SIA ENGINEERING (USA) | VEHICLE ISSUE / RETURN LOG | FORM NO. SIAE-41",
+                        header: ["CERTIFIER/MECHANIC", "VEHICLE", "DATE", "TIME", "ISSUED BY", "RETURN BY", "RETURN DATE", "RETURN TIME"],
+                        mapRow: (records) => [
+                            records.employee_name,
+                            records.vehicle,
+                            formatDate(records.sign_in_time),
+                            formatTime(records.sign_in_time),
+                            records.employee_name,
+                            records.employee_name,
+                            formatDate(records.sign_out_time),
+                            formatTime(records.sign_out_time),
+                        ]
+                    })
+                }
+            >Export PDF</button>
         </div>
     )
 }
