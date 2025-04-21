@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
+import { generatePDF } from "../../utils/generatePDF";
 
 export default function Consumables() {
     const [inputs, setInputs] = useState({
@@ -11,6 +12,15 @@ export default function Consumables() {
         quantity: "",
 
     });
+
+    const formatDate = (timestamp) => {
+        if (!timestamp) return "";
+        const date = new Date(timestamp);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = String(date.getFullYear()).slice(-2);
+        return `${day}/${month}/${year}`;
+      };
     
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -20,7 +30,7 @@ export default function Consumables() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        const record = {
+        const records = {
             airline: inputs.airline,
             oil: inputs.oil,
             quantity: inputs.quantity,
@@ -29,7 +39,7 @@ export default function Consumables() {
             sign_out_date: new Date().toLocaleDateString(),
         }
 
-        const { success } = await dataInsert("consumables", record);
+        const { success } = await dataInsert("consumables", records);
         if (success) {
             setInputs({name: "", id: "", airline: "", oil: "", quantity: ""});
         }
@@ -38,7 +48,7 @@ export default function Consumables() {
 
     return (
         <div className="consumables-container">
-            <h1>Oil Management</h1>
+            <h1>Oil/Hydraulic Management</h1>
 
             <form onSubmit={handleSubmit}>
                 <label>
@@ -63,10 +73,12 @@ export default function Consumables() {
                 <label>
                     Oil
                     <select name = "oil" value={inputs.oil} onChange={handleChange}>
-                        <option value="Select Oil">Select Oil</option>
+                        <option value="Select Oil/Hydraulic">Select Oil/Hydraulic</option>
                         <option value="Eastman 2197">Eastman 2197</option>
                         <option value="Mobil Jet II">Mobil Jet II</option>
                         <option value="Mobil Jet 387">Mobil Jet 387</option>
+                        <option value="HyJet V">Mobil HyJet V</option>
+                        <option value="Skydrol V">Eastman Skydrol PE-5</option>
                     </select>
                 </label>
 
@@ -101,6 +113,26 @@ export default function Consumables() {
                 </label>
                 <button type="submit">Submit</button>
             </form>
+            <button
+                onClick={() => 
+                    generatePDF({
+                        table: "consumables",
+                        title: "SIA ENGINEERING (USA) | OIL/HYD CONTROL LOG | FORM NO. SIAE-40",
+                        header: ["ISSUED TO", "QUANTITY", "AIRLINE", "OIL", "ISSUED BY", "ISSUE DATE", "USED OIL/HYD", "RECIEVED BY", "RETURN DATE"],
+                        mapRow: (records) => [
+                            records.employee_name,
+                            records.quantity,
+                            records.airline,
+                            records.oil,
+                            records.employee_name,
+                            formatDate(records.sign_out_date),
+                            records.quantity,
+                            records.employee_name,
+                            formatDate(records.sign_out_date),
+                        ]
+                    })
+                }
+            >Export PDF</button>
         </div>
     )
 }

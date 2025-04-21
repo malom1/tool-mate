@@ -3,7 +3,9 @@ import "jspdf-autotable"
 import {supabase} from "../supabaseClient";
 
 export const generatePDF = async ({table, title, header, mapRow}) => {
-    const {data, error} = await supabase.from(table).select("*");
+    const {data, error} = await supabase
+        .from(table)
+        .select("*");
 
     if (error) {
         alert(`Failed to fetch data from ${table}`);
@@ -13,7 +15,7 @@ export const generatePDF = async ({table, title, header, mapRow}) => {
 
     const rows = data.map(mapRow);
 
-    const doc = new jsPDF();
+    const doc = new jsPDF({orientation: "landscape"});
     doc.text(`${title}`, 14, 15);
 
     doc.autoTable({
