@@ -13,13 +13,8 @@ export default function Auth() {
 
         if (isLogin) {
             const { error } = await supabase.auth.signInWithPassword({ email, password})
+            setIsLogin(true);
             if (error) alert(error.message)
-            else alert("Signed in!")
-        } else { 
-            const { error } = await supabase.auth.signUp({email, password})
-            if (error)
-                alert(error.message)
-            else alert("Check your email to confirm your account!")
         }
     }
 
@@ -39,11 +34,8 @@ export default function Auth() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button className={styles.btn} type="submit">{isLogin ? "Sign In" : "Sign Up"}</button>
+                <button className={styles.btn} type="submit">Sign In</button>
             </form>
-            <button onClick={() => setIsLogin(!isLogin)}>
-                {isLogin ? "Need an account? Sign Up" : "Already have an account? Sign In"}
-            </button>
         </div>
     )
 }
