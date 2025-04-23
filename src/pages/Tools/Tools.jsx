@@ -218,10 +218,13 @@ export default function Tools () {
                         {activeSignIn.length > 0 ? (
                             activeSignIn.map((entry, index) =>
                                 <li className= {styles.list} key={index}>
-                                    <strong>{entry.tool_name}</strong> - {entry.employee_name}
-                                    <br />
+                                    <div className={styles.entry}>
+                                        <span>
+                                            <strong>{entry.tool_name}</strong> - {entry.employee_name}
+                                        </span>
+                                        <button className = {styles.signout} onClick={() => handleSignOut(entry)}>Sign Out</button>
+                                    </div>
                                     <small>Signed in on: {formatDate(entry.sign_in_time)} - {formatTime(entry.sign_in_time)}</small>
-                                    <button className = {styles.signout} onClick={() => handleSignOut(entry)}>Sign Out</button>
                                 </li>
                             )
                         ) : (

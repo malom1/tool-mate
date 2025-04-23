@@ -18,3 +18,10 @@ h2 {
 .list {
     margin-bottom: 20px;
 }
+
+.entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
