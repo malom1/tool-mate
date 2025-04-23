@@ -10,6 +10,7 @@ import Consumables from './pages/Consumables/Consumables'
 import Vehicles from './pages/Vehicles/Vehicles'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Auth from './pages/Auth/Auth'
+import Footer from './components/Footer/Footer'
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
           </Routes>
         </div>
       </div>
+      <Footer />
     </Router>
   )
 }
