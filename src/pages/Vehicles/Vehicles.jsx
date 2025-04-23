@@ -11,6 +11,12 @@ export default function Vehicles() {
 
     const [inputs, setInputs] = useState({
         vehicle: "",
+        electronics: "",
+        toolBox: "",
+        transitBox: "",
+        consumable: "",
+        airline: "",
+        itemChecked: "",
         name: "",
         id: ""
     });
@@ -48,6 +54,12 @@ export default function Vehicles() {
 
         const record = {
             vehicle: inputs.vehicle,
+            airline: inputs.airline,
+            electronics: inputs.electronics,
+            tool_box: inputs.toolBox,
+            transit_box: inputs.transitBox,
+            consumable: inputs.consumable,
+            item_checked: inputs.itemChecked,
             employee_name: inputs.name,
             employee_id: inputs.id,
             sign_in_time: new Date().toLocaleString(),
@@ -124,7 +136,27 @@ export default function Vehicles() {
     return(
         <div className="main-container">
             <h1>Vehicle Management</h1>
+            
             <form onSubmit={handleSignIn}>
+            <label>
+                    Airline
+                    <select name = "airline" value={inputs.airline} onChange={handleChange}>
+                        <option value="Select Airline">Select Airline</option>
+                        <option value="Asiana Airlines">Asiana Airlines</option>
+                        <option value="Kuwait Airways">Kuwait Airways</option>
+                        <option value="Air India">Air India</option>
+                        <option value="Etihad Airways">Etihad Airways</option>
+                        <option value="Hawaiian Airlines">Hawaiian Airlines</option>
+                        <option value="Kenya Airways">Kenya Airways</option>
+                        <option value="Uzbekistan Airways">Uzbekistan Airways</option>
+                        <option value="Singapore Airlines">Singapore Airlines</option>
+                        <option value="Philippines Airlines">Philippines Airlines</option>
+                        <option value="Amazon Cargo">Amazon Cargo</option>
+                        <option value="China Cargo">China Cargo</option>
+                        <option value="DHL Cargo">DHL Cargo</option>
+                    </select>
+                </label>
+
                 <label>
                     Vehicle
                     <select name = "vehicle" value={inputs.vehicle} onChange={handleChange}>
@@ -139,6 +171,54 @@ export default function Vehicles() {
                         <option value="SEUS 26">SEUS 26</option>
                         <option value="SEUS 27">SEUS 27</option>
                         <option value="SEUS 28">SEUS 28</option>
+                    </select>
+                </label>
+
+                <label>
+                   Electronics
+                    <input 
+                        type="text"
+                        name="electronics"
+                        value={inputs.electronics}
+                        onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                   Tool Box
+                    <input 
+                        type="text"
+                        name="toolBox"
+                        value={inputs.toolBox}
+                        onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                   Transit Box
+                    <input 
+                        type="text"
+                        name="transitBox"
+                        value={inputs.transitBox}
+                        onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                   Consumable
+                    <input 
+                        type="text"
+                        name="consumable"
+                        value={inputs.consumable}
+                        onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                    Item Checked
+                    <select name = "itemChecked" value={inputs.itemChecked} onChange={handleChange}>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
                     </select>
                 </label>
 
@@ -191,10 +271,16 @@ export default function Vehicles() {
                     generatePDF({
                         table: "vehicles",
                         title: "SIA ENGINEERING (USA) | VEHICLE ISSUE / RETURN LOG | FORM NO. SIAE-41",
-                        header: ["CERTIFIER/MECHANIC", "VEHICLE", "DATE", "TIME", "ISSUED BY", "RETURN BY", "RETURN DATE", "RETURN TIME"],
+                        header: ["CERTIFIER/MECHANIC", "AIRLINE", "ELECTRONICS", "VEHICLE", "TOOL BOX", "TRANSIT BOX", "CONSUMABLE", "ITEM CHECKED", "DATE", "TIME", "ISSUED BY", "RETURN BY", "RETURN DATE", "RETURN TIME"],
                         mapRow: (records) => [
                             records.employee_name,
+                            records.airline,
+                            records.electronics,
                             records.vehicle,
+                            records.tool_box,
+                            records.transit_box,
+                            records.consumable,
+                            records.item_checked,
                             formatDate(records.sign_in_time),
                             formatTime(records.sign_in_time),
                             records.employee_name,

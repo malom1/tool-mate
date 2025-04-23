@@ -22,7 +22,7 @@ export const generatePDF = async ({table, title, header, mapRow}) => {
         head: [header],
         body: rows,
         startY: 20,
-        styles: {fontSize: 10},
+        styles: {fontSize: 8},
         margin: {top: 20}
     });
 
