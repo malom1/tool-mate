@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
 import { supabase } from "../../supabaseClient";
-import styles from "./Tools.module.css"
 import { generatePDF } from "../../utils/generatePDF";
+import { formatTime, formatDate } from "../../utils/timeDateFormatter";
+import styles from "./Tools.module.css"
 
 export default function Tools () {
 
@@ -17,24 +18,6 @@ export default function Tools () {
         airline: "",
         location: ""
     })
-
-    const formatTime = (time) => {
-        if (!time) return "";
-        const date = new Date(time);
-        return date.toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    };
-
-    const formatDate = (timestamp) => {
-        if (!timestamp) return "";
-        const date = new Date(timestamp);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = String(date.getFullYear()).slice(-2);
-        return `${day}/${month}/${year}`;
-      };
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -142,6 +125,7 @@ export default function Tools () {
                         name="tic"
                         value={inputs.tic}
                         onChange={handleChange}
+                        required
                     />
                 </label>
 
@@ -152,12 +136,18 @@ export default function Tools () {
                         name="tool"
                         value={inputs.tool}
                         onChange={handleChange}
+                        required
                     />
                 </label>
 
                 <label>
                     Location
-                    <select name = "location" value={inputs.location} onChange={handleChange}>
+                    <select 
+                        name = "location" 
+                        value={inputs.location} 
+                        onChange={handleChange}
+                        required
+                    >
                         <option value="Select Location">Select Location</option>
                         <option value="TO 21">TO 23</option>
                         <option value="TO 23">TO 24</option>
@@ -171,7 +161,12 @@ export default function Tools () {
 
                 <label>
                     Airline
-                    <select name = "airline" value={inputs.airline} onChange={handleChange}>
+                    <select 
+                        name = "airline" 
+                        value={inputs.airline} 
+                        onChange={handleChange}
+                        required
+                    >
                         <option value="Select Airline">Select Airline</option>
                         <option value="Asiana Airlines">Asiana Airlines</option>
                         <option value="Kuwait Airways">Kuwait Airways</option>
@@ -196,6 +191,7 @@ export default function Tools () {
                         name="name"
                         value={inputs.name}
                         onChange={handleChange}
+                        required
                     />
                 </label>
 
@@ -206,6 +202,7 @@ export default function Tools () {
                         name="id"
                         value={inputs.id}
                         onChange={handleChange}
+                        required
                     />
                 </label>
 
@@ -221,9 +218,9 @@ export default function Tools () {
                         {activeSignIn.length > 0 ? (
                             activeSignIn.map((entry, index) =>
                                 <li className= {styles.list} key={index}>
-                                    <strong>{entry.tool_name}</strong> - {entry.employee_name} ({entry.employee_id})
+                                    <strong>{entry.tool_name}</strong> - {entry.employee_name}
                                     <br />
-                                    <small>Signed in at: {entry.sign_in_time}</small>
+                                    <small>Signed in on: {formatDate(entry.sign_in_time)} - {formatTime(entry.sign_in_time)}</small>
                                     <button className = {styles.signout} onClick={() => handleSignOut(entry)}>Sign Out</button>
                                 </li>
                             )

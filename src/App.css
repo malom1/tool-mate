@@ -47,7 +47,7 @@ body {
 }
 
 .content {
-    flex: 1;
+    flex: 3;
     padding: 2rem;
     overflow-y: auto;
 }
@@ -81,8 +81,8 @@ input, select {
 
 button {
     margin-top: 1rem;
-    padding: 0.6rem 1rem;
-    background-color: #0d4e85;
+    padding: 0.5rem 1rem;
+    background-color: #387ab0;
     color: white;
     border: none;
     border-radius: 6px;

@@ -12,7 +12,6 @@ export default function Dashboard () {
                 <h3 className={styles.welcome}>Welcome to the Tool Mate Dashboard!</h3>
                 <p>Select the options on the left sidebar to start logging.</p>
             </div>
-            <Memo className={styles.memo}/>
         </div>
 
     )

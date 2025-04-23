@@ -6,7 +6,7 @@ export default function Sidebar() {
             <Link to ="/">Dashboard</Link>
             <Link to="/tools">Tools</Link>
             <Link to="/vehicles">Vehicles</Link>
-            <Link to="/consumables">Oils</Link>
+            <Link to="/consumables">Oils/Hydraulics</Link>
         </div>
     )
 }

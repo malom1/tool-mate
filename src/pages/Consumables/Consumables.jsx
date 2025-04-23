@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { dataInsert } from "../../utils/dataInsert";
 import { generatePDF } from "../../utils/generatePDF";
+import { formatDate } from "../../utils/timeDateFormatter";
 
 export default function Consumables() {
     const [inputs, setInputs] = useState({
@@ -12,15 +13,6 @@ export default function Consumables() {
         quantity: "",
 
     });
-
-    const formatDate = (timestamp) => {
-        if (!timestamp) return "";
-        const date = new Date(timestamp);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = String(date.getFullYear()).slice(-2);
-        return `${day}/${month}/${year}`;
-      };
     
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -48,12 +40,17 @@ export default function Consumables() {
 
     return (
         <div className="consumables-container">
-            <h1>Oil/Hydraulic Management</h1>
+            <h1>Oils & Hydraulics Management</h1>
 
             <form onSubmit={handleSubmit}>
                 <label>
                     Airline
-                    <select name = "airline" value={inputs.airline} onChange={handleChange}>
+                    <select 
+                        name = "airline" 
+                        value={inputs.airline} 
+                        onChange={handleChange}
+                        required
+                    >
                         <option value="Select Airline">Select Airline</option>
                         <option value="Asiana Airlines">Asiana Airlines</option>
                         <option value="Kuwait Airways">Kuwait Airways</option>
@@ -72,7 +69,12 @@ export default function Consumables() {
 
                 <label>
                     Oil
-                    <select name = "oil" value={inputs.oil} onChange={handleChange}>
+                    <select 
+                        name = "oil" 
+                        value={inputs.oil} 
+                        onChange={handleChange}
+                        required
+                    >
                         <option value="Select Oil/Hydraulic">Select Oil/Hydraulic</option>
                         <option value="Eastman 2197">Eastman 2197</option>
                         <option value="Mobil Jet II">Mobil Jet II</option>
@@ -89,6 +91,7 @@ export default function Consumables() {
                         name="quantity"
                         value={inputs.quantity}
                         onChange={handleChange}
+                        required
                     />
                 </label>
 
@@ -99,6 +102,7 @@ export default function Consumables() {
                         name="name"
                         value={inputs.name}
                         onChange={handleChange}
+                        required
                     />
                 </label>
 

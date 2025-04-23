@@ -30,10 +30,10 @@ export default function Vehicles() {
     const handleSignIn = async (e) => {
         e.preventDefault();
 
-        if(!inputs.vehicle || !inputs.name || !inputs.id) {
-            alert("Please fill out all the fields")
-            return;
-        }
+        // if(!inputs.vehicle || !inputs.name || !inputs.id) {
+        //     alert("Please fill out all the fields")
+        //     return;
+        // }
 
         const record = {
             vehicle: inputs.vehicle,
@@ -123,8 +123,8 @@ export default function Vehicles() {
             <form onSubmit={handleSignIn}>
             <label>
                     Airline
-                    <select name = "airline" value={inputs.airline} onChange={handleChange}>
-                        <option value="Select Airline">Select Airline</option>
+                    <select name = "airline" value={inputs.airline} onChange={handleChange} required>
+                        <option value="">Select Airline</option>
                         <option value="Asiana Airlines">Asiana Airlines</option>
                         <option value="Kuwait Airways">Kuwait Airways</option>
                         <option value="Air India">Air India</option>
@@ -142,8 +142,12 @@ export default function Vehicles() {
 
                 <label>
                     Vehicle
-                    <select name = "vehicle" value={inputs.vehicle} onChange={handleChange}>
-                        <option value="Select Vehicle">Select Vehicle</option>
+                    <select name = "vehicle" 
+                        value={inputs.vehicle} 
+                        onChange={handleChange} 
+                        required
+                    >
+                        <option value="">Select Vehicle</option>
                         <option value="SEUS 01">SEUS 01</option>
                         <option value="SEUS 03">SEUS 03</option>
                         <option value="SEUS 10">SEUS 10</option>
@@ -199,7 +203,13 @@ export default function Vehicles() {
 
                 <label>
                     Item Checked
-                    <select name = "itemChecked" value={inputs.itemChecked} onChange={handleChange}>
+                    <select 
+                        name = "itemChecked" 
+                        value={inputs.itemChecked} 
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select Option</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
@@ -212,6 +222,7 @@ export default function Vehicles() {
                         name="name"
                         value={inputs.name}
                         onChange={handleChange}
+                        required
                     />
                 </label>
 
@@ -236,9 +247,9 @@ export default function Vehicles() {
                     {activeSignIns.length > 0 ? (
                         activeSignIns.map((entry, index) => (
                             <li className={styles.list} key={index}>
-                                <strong>{entry.vehicle}</strong> - {entry.employee_name} (ID: {entry.employee_id})
+                                <strong>{entry.vehicle}</strong> - {entry.employee_name}
                                 <br />
-                                <small>Signed in at: {entry.sign_in_time}</small>
+                                <small>Signed in on: {formatDate(entry.sign_in_time)} - {formatTime(entry.sign_in_time)}</small>
                                 <button className={styles.signout}onClick={() => handleSignOut(entry)}>Sign Out</button>
                             </li>
                         ))
