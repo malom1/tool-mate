@@ -2,7 +2,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable"
 import {supabase} from "../supabaseClient";
 
-export const generatePDF = async ({table, title, header, mapRow}) => {
+export const generatePDF = async ({table, header, mapRow}) => {
     const {data, error} = await supabase
         .from(table)
         .select("*");
@@ -16,14 +16,13 @@ export const generatePDF = async ({table, title, header, mapRow}) => {
     const rows = data.map(mapRow);
 
     const doc = new jsPDF({orientation: "landscape"});
-    doc.text(`${title}`, 14, 15);
 
     doc.autoTable({
         head: [header],
         body: rows,
         startY: 20,
         styles: {fontSize: 8},
-        margin: {top: 20}
+        margin: {top: 20, bottom: 20},
     });
 
     const blob = doc.output("blob");

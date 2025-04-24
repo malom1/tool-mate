@@ -249,7 +249,7 @@ export default function Vehicles() {
                             <li className={styles.list} key={index}>
                                 <div className={styles.entry}>
                                     <span>
-                                        <strong>{entry.tool_name}</strong> - {entry.employee_name}
+                                        <strong>{entry.vehicle}</strong> - {entry.employee_name}
                                     </span>
                                     <button className = {styles.signout} onClick={() => handleSignOut(entry)}>Sign Out</button>
                                 </div>
@@ -267,7 +267,6 @@ export default function Vehicles() {
                 onClick={() =>
                     generatePDF({
                         table: "vehicles",
-                        title: "SIA ENGINEERING (USA) | VEHICLE ISSUE / RETURN LOG | FORM NO. SIAE-41",
                         header: ["CERTIFIER/MECHANIC", "AIRLINE", "ELECTRONICS", "VEHICLE", "TOOL BOX", "TRANSIT BOX", "CONSUMABLE", "ITEM CHECKED", "DATE", "TIME", "ISSUED BY", "RETURN BY", "RETURN DATE", "RETURN TIME"],
                         mapRow: (records) => [
                             records.employee_name,

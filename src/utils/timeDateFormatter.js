@@ -2,6 +2,7 @@ export const formatTime = (time) => {
     if (!time) return "";
     const date = new Date(time);
     return date.toLocaleTimeString([], {
+      timeZone: 'America/New_York',
         hour: '2-digit',
         minute: '2-digit'
     });

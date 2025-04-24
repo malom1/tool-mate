@@ -121,7 +121,6 @@ export default function Consumables() {
                 onClick={() => 
                     generatePDF({
                         table: "consumables",
-                        title: "SIA ENGINEERING (USA) | OIL/HYD CONTROL LOG | FORM NO. SIAE-40",
                         header: ["ISSUED TO", "QUANTITY", "AIRLINE", "OIL", "ISSUED BY", "ISSUE DATE", "USED OIL/HYD", "RECIEVED BY", "RETURN DATE"],
                         mapRow: (records) => [
                             records.employee_name,

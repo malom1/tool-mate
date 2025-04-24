@@ -148,7 +148,7 @@ export default function Tools () {
                         onChange={handleChange}
                         required
                     >
-                        <option value="Select Location">Select Location</option>
+                        <option value="">Select Location</option>
                         <option value="TO 21">TO 23</option>
                         <option value="TO 23">TO 24</option>
                         <option value="JFKLMI001">JFKLMI001</option>
@@ -167,7 +167,7 @@ export default function Tools () {
                         onChange={handleChange}
                         required
                     >
-                        <option value="Select Airline">Select Airline</option>
+                        <option value="">Select Airline</option>
                         <option value="Asiana Airlines">Asiana Airlines</option>
                         <option value="Kuwait Airways">Kuwait Airways</option>
                         <option value="Air India">Air India</option>
@@ -228,7 +228,7 @@ export default function Tools () {
                                 </li>
                             )
                         ) : (
-                            <p>No active sign ins</p>
+                            <p>No active sign-ins</p>
                         )
                         }
                     </ul>
@@ -238,7 +238,6 @@ export default function Tools () {
                 onClick={() =>
                     generatePDF({
                         table: "tools",
-                        title: "SIA ENGINEERING (USA) | TOOL LOG ISSUE / RETURN REGISTER | FORM NO. SIAE-C04",
                         header: ["TIC", "TOOL NAME", "A/C WORK ORDER", "DATE ISSUED", "ISSUED TO", "DATE RETURNED", "RETURNING EMPLOYEE", "TIME IN", "TIME OUT"],
                         mapRow: (records) => [
                             records.tic,
