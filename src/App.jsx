@@ -43,7 +43,7 @@ function App() {
     <Router>
       <Header />
       <div className="main-layout">
-        <Sidebar/>
+        <Sidebar />
         <div className='content'>
           <Routes>
             <Route path='/' element = {<Dashboard />} />

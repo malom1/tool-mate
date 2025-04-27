@@ -10,7 +10,14 @@ export default function Dashboard () {
                 <h1>Dashboard</h1>
                 <DateTime className={styles.dateTime}/>
                 <h3 className={styles.welcome}>Welcome to the Tool Mate Dashboard!</h3>
-                <p>Select the options on the left sidebar to start logging.</p>
+                <h5>App Instructions</h5>
+                <br />
+                <p>1. Navigate through the sidebar to choose a sign out option</p>
+                <p>2. Input all the required details </p>
+                <p>3. Tools and Vehicles must be signed back in at the bottom of the page after use</p>
+                <p>4. Oils/Hydraulics can only be signed out after use</p>
+                <p>5. For anything not used, input "NA"</p>
+                <p>6. Click submit to upload the information</p>
             </div>
         </div>
 

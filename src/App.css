@@ -12,14 +12,16 @@ body {
 
 .main-layout {
     display: flex;
-    height: 100vh;
+    height: 82vh;
 }
 
 .sidebar {
-    width: 220px;
+    width: 250px;
     background-color: #e0ecf3;
     padding: 1.5rem;
     border-right: 1px solid #d0dce5;
+    transition: transform 0.3s ease;
+
 }
 
 .sidebar h2 {
@@ -108,4 +110,27 @@ button:hover {
 @keyframes spin {
     0% {transform: rotate(0deg);}
     100% {transform: rotate(360deg);}
+}
+
+@media (max-width: 768px) {
+
+    .header {
+        padding-top: 40px;
+    }
+    .main-layout { 
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .content {
+        flex: 1;
+        padding: 1rem;
+    }
+
 }
