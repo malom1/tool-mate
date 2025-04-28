@@ -47,8 +47,15 @@ export default function Tools () {
 
         const { success } = await dataInsert("tools", records);
         if (success) {
-            setInputs({name:"", id:"", tool: "", location: "", tic: "", airline: ""});
-            setActiveSignIn((prev) => [...prev, {...records}]);   
+            setInputs({
+                name: "",
+                id: "",
+                tool: "",
+                tic: "",
+                airline: "",
+                location: ""
+            });
+            setActiveSignIn((prev) => [...prev, {...records}]);
         }
     };
 
@@ -81,6 +88,8 @@ export default function Tools () {
             alert("Error signing out");
             console.error(updateError.message);
             return;
+        } else {
+            alert ("Success");
         }
 
         setActiveSignIn((prev) =>
@@ -168,24 +177,27 @@ export default function Tools () {
                         required
                     >
                         <option value="">Select Airline</option>
-                        <option value="Asiana Airlines">Asiana Airlines</option>
-                        <option value="Kuwait Airways">Kuwait Airways</option>
                         <option value="Air India">Air India</option>
+                        <option value="Amazon Cargo">Amazon Cargo</option>
+                        <option value="Asiana Airlines">Asiana Airlines</option>
+                        <option value="China Cargo">China Cargo</option>
+                        <option value="China Southern Airlines">China Southern Airlines</option>
+                        <option value="China Southern Cargo">China Southern Cargo</option>
+                        <option value="DHL Cargo">DHL Cargo</option>
                         <option value="Etihad Airways">Etihad Airways</option>
                         <option value="Hawaiian Airlines">Hawaiian Airlines</option>
                         <option value="Kenya Airways">Kenya Airways</option>
-                        <option value="Uzbekistan Airways">Uzbekistan Airways</option>
+                        <option value="Kuwait Airways">Kuwait Airways</option>
+                        <option value="Philippine Airlines">Philippine Airlines</option>
                         <option value="Singapore Airlines">Singapore Airlines</option>
-                        <option value="Philippines Airlines">Philippines Airlines</option>
-                        <option value="Amazon Cargo">Amazon Cargo</option>
-                        <option value="China Cargo">China Cargo</option>
-                        <option value="DHL Cargo">DHL Cargo</option>
+                        <option value="Uzbekistan Airways">Uzbekistan Airways</option>
+                        <option value="Xiamen Air">Xiamen Air</option>
                     </select>
                 </label>
 
 
                 <label>
-                    Employee Name:
+                    Employee Name
                     <input 
                         type="text"
                         name="name"
@@ -196,7 +208,7 @@ export default function Tools () {
                 </label>
 
                 <label>
-                    Employee ID:
+                    Employee ID
                     <input 
                         type="text"
                         name="id"
@@ -206,7 +218,7 @@ export default function Tools () {
                     />
                 </label>
 
-                <button type="submit">Submit</button>
+                <button type="submit">Sign In</button>
             </form>
 
             <h2>Active Tool Sign-Ins</h2>

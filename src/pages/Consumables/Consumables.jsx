@@ -33,7 +33,13 @@ export default function Consumables() {
 
         const { success } = await dataInsert("consumables", records);
         if (success) {
-            setInputs({name: "", id: "", airline: "", oil: "", quantity: ""});
+            setInputs({
+                name: "",
+                id: "",
+                airline: "",
+                oil: "",
+                quantity: "",
+            });
         }
     }
 

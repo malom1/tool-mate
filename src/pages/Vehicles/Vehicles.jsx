@@ -30,11 +30,6 @@ export default function Vehicles() {
     const handleSignIn = async (e) => {
         e.preventDefault();
 
-        // if(!inputs.vehicle || !inputs.name || !inputs.id) {
-        //     alert("Please fill out all the fields")
-        //     return;
-        // }
-
         const record = {
             vehicle: inputs.vehicle,
             airline: inputs.airline,
@@ -50,8 +45,20 @@ export default function Vehicles() {
 
         const {success} = await dataInsert("vehicles", record);
         if (success) {
-            setInputs({vehicle: "", name: "", id: ""});
+            setInputs({
+                vehicle: "",
+                electronics: "",
+                toolBox: "",
+                transitBox: "",
+                consumable: "",
+                airline: "",
+                itemChecked: "",
+                name: "",
+                id: ""
+            });
             setActiveSignIns((prev) => [...prev, {...record}]);
+        } else {
+            alert ("Error signing out")
         }
 
     };
@@ -84,6 +91,8 @@ export default function Vehicles() {
         if (updateError) {
             alert("Error signing out");
             return;
+        } else {
+            alert("Success")
         }
 
         setActiveSignIns(prev => prev.filter(signIn =>
@@ -122,21 +131,29 @@ export default function Vehicles() {
             
             <form onSubmit={handleSignIn}>
             <label>
-                    Airline
-                    <select name = "airline" value={inputs.airline} onChange={handleChange} required>
+                Airline
+                    <select
+                        name = "airline" 
+                        value={inputs.airline} 
+                        onChange={handleChange} 
+                        required
+                    >
                         <option value="">Select Airline</option>
-                        <option value="Asiana Airlines">Asiana Airlines</option>
-                        <option value="Kuwait Airways">Kuwait Airways</option>
                         <option value="Air India">Air India</option>
+                        <option value="Amazon Cargo">Amazon Cargo</option>
+                        <option value="Asiana Airlines">Asiana Airlines</option>
+                        <option value="China Cargo">China Cargo</option>
+                        <option value="China Southern Airlines">China Southern Airlines</option>
+                        <option value="China Southern Cargo">China Southern Cargo</option>
+                        <option value="DHL Cargo">DHL Cargo</option>
                         <option value="Etihad Airways">Etihad Airways</option>
                         <option value="Hawaiian Airlines">Hawaiian Airlines</option>
                         <option value="Kenya Airways">Kenya Airways</option>
-                        <option value="Uzbekistan Airways">Uzbekistan Airways</option>
+                        <option value="Kuwait Airways">Kuwait Airways</option>
+                        <option value="Philippine Airlines">Philippine Airlines</option>
                         <option value="Singapore Airlines">Singapore Airlines</option>
-                        <option value="Philippines Airlines">Philippines Airlines</option>
-                        <option value="Amazon Cargo">Amazon Cargo</option>
-                        <option value="China Cargo">China Cargo</option>
-                        <option value="DHL Cargo">DHL Cargo</option>
+                        <option value="Uzbekistan Airways">Uzbekistan Airways</option>
+                        <option value="Xiamen Air">Xiamen Air</option>
                     </select>
                 </label>
 
