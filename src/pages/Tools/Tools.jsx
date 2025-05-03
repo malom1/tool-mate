@@ -33,7 +33,7 @@ export default function Tools () {
             return;
         }
 
-        const time = new Date().toLocaleString();
+        const time = new Date().toISOString();
 
         const records = {
             employee_name: inputs.name,
@@ -61,7 +61,7 @@ export default function Tools () {
 
     const handleSignOut = async (entry) => {
 
-        const time = new Date().toLocaleString();
+        const time = new Date().toISOString();
 
         const { data: record, error: fetchError } = await supabase
             .from("tools")

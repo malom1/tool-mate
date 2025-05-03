@@ -40,7 +40,7 @@ export default function Vehicles() {
             item_checked: inputs.itemChecked,
             employee_name: inputs.name,
             employee_id: inputs.id,
-            sign_in_time: new Date().toLocaleString(),
+            sign_in_time: new Date().toISOString(),
         }
 
         const {success} = await dataInsert("vehicles", record);
@@ -65,7 +65,7 @@ export default function Vehicles() {
 
     const handleSignOut = async (entry) => {
 
-        const time = new Date().toLocaleString();
+        const time = new Date().toISOString();
 
         const { data: record, error: fetchError } = await supabase
             .from("vehicles")
