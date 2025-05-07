@@ -5,7 +5,8 @@ import {supabase} from "../supabaseClient";
 export const generatePDF = async ({table, header, mapRow}) => {
     const {data, error} = await supabase
         .from(table)
-        .select("*");
+        .select("*")
+        .order("sign_in_time", { ascending:true})
 
     if (error) {
         alert(`Failed to fetch data from ${table}`);
@@ -20,9 +21,9 @@ export const generatePDF = async ({table, header, mapRow}) => {
     doc.autoTable({
         head: [header],
         body: rows,
-        startY: 20,
+        startY: 0,
         styles: {fontSize: 8},
-        margin: {top: 20, bottom: 20},
+        margin: { bottom: 50},
     });
 
     const blob = doc.output("blob");
