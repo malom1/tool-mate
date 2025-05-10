@@ -28,7 +28,7 @@ export default function Consumables() {
             quantity: inputs.quantity,
             employee_name: inputs.name,
             employee_id: inputs.id,
-            sign_out_date: new Date().toLocaleDateString(),
+            sign_in_time: new Date().toLocaleDateString(),
         }
 
         const { success } = await dataInsert("consumables", records);
@@ -134,10 +134,10 @@ export default function Consumables() {
                             records.airline,
                             records.oil,
                             records.employee_name,
-                            formatDate(records.sign_out_date),
+                            formatDate(records.sign_in_time),
                             records.quantity,
                             records.employee_name,
-                            formatDate(records.sign_out_date),
+                            formatDate(records.sign_in_time),
                         ]
                     })
                 }
