@@ -19,7 +19,6 @@ export default function Vehicles() {
         airline: "",
         itemChecked: "",
         name: "",
-        id: ""
     });
 
     const handleChange = (e) => {
@@ -39,7 +38,6 @@ export default function Vehicles() {
             consumable: inputs.consumable,
             item_checked: inputs.itemChecked,
             employee_name: inputs.name,
-            employee_id: inputs.id,
             sign_in_time: new Date().toISOString(),
         }
 
@@ -54,7 +52,6 @@ export default function Vehicles() {
                 airline: "",
                 itemChecked: "",
                 name: "",
-                id: ""
             });
             setActiveSignIns((prev) => [...prev, {...record}]);
         } else {
@@ -70,7 +67,7 @@ export default function Vehicles() {
         const { data: record, error: fetchError } = await supabase
             .from("vehicles")
             .select("id")
-            .eq("employee_id", entry.employee_id)
+            .eq("employee_name", entry.employee_name)
             .eq("vehicle", entry.vehicle)
             .is("sign_out_time", null)
             .order("sign_in_time", {ascending: false})
@@ -96,7 +93,7 @@ export default function Vehicles() {
         }
 
         setActiveSignIns(prev => prev.filter(signIn =>
-            !(signIn.id === entry.id && signIn.vehicle ===entry.vehicle)
+            !(signIn.id === entry.id && signIn.vehicle === entry.vehicle)
         ));
     }
 
@@ -159,7 +156,8 @@ export default function Vehicles() {
 
                 <label>
                     Vehicle
-                    <select name = "vehicle" 
+                    <select 
+                        name = "vehicle" 
                         value={inputs.vehicle} 
                         onChange={handleChange} 
                         required
@@ -180,42 +178,54 @@ export default function Vehicles() {
 
                 <label>
                    Electronics
-                    <input 
-                        type="text"
+                    <select 
                         name="electronics"
                         value={inputs.electronics}
                         onChange={handleChange}
-                    />
+                    >
+                        <option value="None">None</option>
+                        <option value="Hawaiian iPad">Hawaiian iPad</option>
+                    </select>
                 </label>
 
                 <label>
                    Tool Box
-                    <input 
-                        type="text"
+                    <select 
                         name="toolBox"
                         value={inputs.toolBox}
                         onChange={handleChange}
-                    />
+                    >
+                        <option value="None">None</option>
+                        <option value="TO 23">TO 23</option>
+                        <option value="TO 24">TO 24</option>
+                    </select>
                 </label>
 
                 <label>
                    Transit Box
-                    <input 
-                        type="text"
+                    <select 
                         name="transitBox"
                         value={inputs.transitBox}
                         onChange={handleChange}
-                    />
+                    >
+                        <option value="None">None</option>
+                        <option value="JFKLMI001">JFKLMI001</option>
+                    </select>
                 </label>
 
                 <label>
                    Consumable
-                    <input 
+                    <select 
                         type="text"
                         name="consumable"
                         value={inputs.consumable}
                         onChange={handleChange}
-                    />
+                    >
+                        <option value="None">None</option>
+                        <option value="Speed Tape">Speed Tape</option>
+                        <option value="Cargo Tape">Cargo Tape</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </label>
 
                 <label>
@@ -243,7 +253,7 @@ export default function Vehicles() {
                     />
                 </label>
 
-                <label>
+                {/* <label>
                     Employee ID
                     <input 
                         type="text"
@@ -251,7 +261,7 @@ export default function Vehicles() {
                         value={inputs.id}
                         onChange={handleChange}
                     />
-                </label>
+                </label> */}
                 <button type="submit-btn">Sign In</button>
             </form>
 
