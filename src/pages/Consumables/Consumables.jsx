@@ -151,15 +151,6 @@ export default function Consumables() {
                     </select>
                 </label>
 
-                {/* <label>
-                    Employee ID:
-                    <input 
-                        type="text"
-                        name="id"
-                        value={inputs.id}
-                        onChange={handleChange}
-                    />
-                </label> */}
                 <button type="submit">Submit</button>
             </form>
             <button

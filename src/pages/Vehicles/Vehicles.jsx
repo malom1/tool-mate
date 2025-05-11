@@ -252,16 +252,7 @@ export default function Vehicles() {
                         required
                     />
                 </label>
-
-                {/* <label>
-                    Employee ID
-                    <input 
-                        type="text"
-                        name="id"
-                        value={inputs.id}
-                        onChange={handleChange}
-                    />
-                </label> */}
+                
                 <button type="submit-btn">Sign In</button>
             </form>
 
