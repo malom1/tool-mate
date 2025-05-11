@@ -244,15 +244,54 @@ export default function Vehicles() {
 
                 <label>
                    Employee Name
-                    <input 
-                        type="text"
+                    <select 
                         name="name"
                         value={inputs.name}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        <option value="">Select Employee</option>
+                        <option value="Akim B.">Akim B.</option>
+                        <option value="Alpesh P.">Alpesh P.</option>
+                        <option value="Alvi B.">Alvi B.</option>
+                        <option value="Anas K.">Anas K.</option>
+                        <option value="Brandon P.">Brandon P.</option>
+                        <option value="Chris C.">Chris C.</option>
+                        <option value="Dinis M.">Dinis M.</option>
+                        <option value="Dylan H.">Dylan H.</option>
+                        <option value="Eduardo A.">Eduardo A.</option>
+                        <option value="Humberto L.">Humberto L.</option>
+                        <option value="Igor P.">Igor P.</option>
+                        <option value="James J.">James J.</option>
+                        <option value="James R.">James R.</option>
+                        <option value="Jason R.">Jason R.</option>
+                        <option value="Jonathan M.">Jonathan M.</option>
+                        <option value="Justin G.">Justin G.</option>
+                        <option value="Kaven O.">Kaven O.</option>
+                        <option value="Linus L.">Linus L.</option>
+                        <option value="Michael A.">Michael A.</option>
+                        <option value="Miguel Z.">Miguel Z.</option>
+                        <option value="Mohamed K.">Mohamed K.</option>
+                        <option value="Mohammad A.">Mohammad A.</option>
+                        <option value="Nick E.">Nick E.</option>
+                        <option value="Onir D.">Onir D.</option>
+                        <option value="Ray A.">Ray A.</option>
+                        <option value="Richard R.">Richard R.</option>
+                        <option value="Ruben G.">Ruben G.</option>
+                        <option value="Riyan K.">Riyan K.</option>
+                        <option value="Satish V.">Satish V.</option>
+                        <option value="Shams H.">Shams H.</option>
+                        <option value="Stephen C.">Stephen C.</option>
+                        <option value="Steven J.">Steven J.</option>
+                        <option value="Tansim F.">Tansim F.</option>
+                        <option value="Ubair A.">Ubair A.</option>
+                        <option value="Umesh R.">Umesh R.</option>
+                        <option value="Waheed M.">Waheed M.</option>
+                        <option value="Waseem K.">Waseem K.</option>
+                        <option value="Zahid H.">Zahid H.</option>
+                    </select>
                 </label>
-                
+
                 <button type="submit-btn">Sign In</button>
             </form>
 
