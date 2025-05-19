@@ -274,6 +274,7 @@ export default function Vehicles() {
                         <option value="Mohamed K.">Mohamed K.</option>
                         <option value="Mohammad A.">Mohammad A.</option>
                         <option value="Nick E.">Nick E.</option>
+                        <option value="Nick R.">Nick R.</option>
                         <option value="Onir D.">Onir D.</option>
                         <option value="Ray A.">Ray A.</option>
                         <option value="Richard R.">Richard R.</option>

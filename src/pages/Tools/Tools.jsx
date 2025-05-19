@@ -193,34 +193,6 @@ export default function Tools () {
                 </label>
 
                 <label>
-                    Oil
-                    <select 
-                        name = "oil" 
-                        value={inputs.oil} 
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Select Oil/Hydraulic</option>
-                        <option value="Eastman 2197">Eastman 2197</option>
-                        <option value="Mobil Jet II">Mobil Jet II</option>
-                        <option value="Mobil Jet 387">Mobil Jet 387</option>
-                        <option value="HyJet V">Mobil HyJet V</option>
-                        <option value="Skydrol V">Eastman Skydrol PE-5</option>
-                    </select>
-                </label>
-
-                <label>
-                    Quantity
-                    <input 
-                        type="number"
-                        name="quantity"
-                        value={inputs.quantity}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
-
-                <label>
                     Employee Name:
                     <select
                         name="name"
@@ -252,6 +224,7 @@ export default function Tools () {
                         <option value="Mohamed K.">Mohamed K.</option>
                         <option value="Mohammad A.">Mohammad A.</option>
                         <option value="Nick E.">Nick E.</option>
+                        <option value="Nick R.">Nick R.</option>
                         <option value="Onir D.">Onir D.</option>
                         <option value="Ray A.">Ray A.</option>
                         <option value="Richard R.">Richard R.</option>
